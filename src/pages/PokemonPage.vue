@@ -12,8 +12,8 @@
       return {
         pokemonArr: [] as ListPokemonOptions[],
         pokemon: null as ListPokemonOptions | null,
-        showPokemon: false, 
-        showAnswer: false, 
+        showPokemon: false,
+        showAnswer: false,
         message: ''
       }
     },
@@ -25,26 +25,26 @@
 
         this.pokemon = this.pokemonArr[rndInt]
       },
-    checkAnswer(selectedId: number) {
-      this.showPokemon =  true
+      checkAnswer(selectedId: number) {
+        this.showPokemon = true
         this.showAnswer = true
         this.pokemonArr = []
-      if (!this.pokemon) return;
+        if (!this.pokemon) return;
 
-      if (selectedId == this.pokemon?.id) {
-      this.message = 'correcto, ${this.pokemon!.name}'
-    } else {
-      this.message = 'Oops, era ${this.pokemon!.name}'
+        if (selectedId === this.pokemon.id) {
+          this.message = `Correcto, ${this.pokemon.name}`
+        } else {
+          this.message = `Oops, era ${this.pokemon.name}`
+        }
+      },
+      newGame() {
+        this.showPokemon = false
+        this.showAnswer = false
+        this.pokemonArr = []
+        this.pokemon = null
+        this.mixPokemonArray()
       }
-    }
-  },
-  newGame() {
-    this.showPokemon = false;
-    this.showAnswer = false;
-    this.pokemonArr = [];
-    this.pokemon = null;
-    this.mixPokemonArray() 
-  },
+    },
     mounted() {
       this.mixPokemonArray()
     }
@@ -59,13 +59,13 @@
   
     <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
     <PokemonOptions :pokemons="pokemonArr" @selection="checkAnswer"/>
-    
+
     <template v-if="showAnswer">
-    <h2 class="fade-in">{{ message }}</h2>
-    
-    <button>
-      Nuevo juego
-    </button>
+      <h2 class="fade-in">{{ message }}</h2>
+      <button @click="newGame">
+        Nuevo Juego
+      </button>
+    </template>
   </div>
 </template>
 
